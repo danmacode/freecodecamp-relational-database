@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# Queries the PostgreSQL database worldcup. Should match expected_ouput.txt
 
 PSQL="psql -U freecodecamp -d worldcup --no-align --tuples-only -c"
 
@@ -23,19 +25,19 @@ echo -e "\nMost goals scored in a single game by one team:"
 echo "$($PSQL "SELECT MAX(winner_goals) FROM games;")"
 
 echo -e "\nNumber of games where the winning team scored more than two goals:"
-echo
+echo "$($PSQL "SELECT COUNT(*) FROM games WHERE winner_goals>2")"
 
 echo -e "\nWinner of the 2018 tournament team name:"
-echo
+echo "$($PSQL "SELECT name FROM teams FULL JOIN games ON games.winner_id=teams.team_id WHERE year=2018 AND round='Final'")"
 
 echo -e "\nList of teams who played in the 2014 'Eighth-Final' round:"
-echo
+echo "$($PSQL "SELECT name FROM teams FULL JOIN games ON (games.winner_id=teams.team_id OR games.opponent_id=teams.team_id) WHERE year=2014 AND round='Eighth-Final' ORDER BY name ASC")"
 
 echo -e "\nList of unique winning team names in the whole data set:"
-echo
+echo "$($PSQL "SELECT DISTINCT name FROM teams RIGHT JOIN games ON games.winner_id=teams.team_id ORDER BY name ASC")"
 
 echo -e "\nYear and team name of all the champions:"
-echo
+echo "$($PSQL "SELECT year,name FROM teams RIGHT JOIN games ON games.winner_id=teams.team_id WHERE round='Final' ORDER BY year ASC")"
 
 echo -e "\nList of teams that start with 'Co':"
-echo
+echo "$($PSQL " SELECT name FROM teams WHERE name LIKE 'Co%' ORDER BY name ASC")"
