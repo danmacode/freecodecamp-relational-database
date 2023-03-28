@@ -36,3 +36,51 @@ FROM
     types
 LIMIT
     3;
+
+-- Setting properties_type_id to 1,2,3 for nonmetal, metal, metalloid
+ALTER TABLE properties
+ADD COLUMN IF NOT EXISTS type_id INT REFERENCES types (type_id);
+
+UPDATE properties
+SET
+    type_id = 1
+WHERE
+type = 'nonmetal';
+
+UPDATE properties
+SET
+    type_id = 2
+WHERE
+type = 'metal';
+
+UPDATE properties
+SET
+    type_id = 3
+WHERE
+type = 'metalloid';
+
+-- properties need a type_id value that links to the correct type in the types TABLE
+-- since we filled properties with type_id not null we can set NOT NULL
+-- NOT NULL property could be set later on: ALTER COLUMN type_id SET NOT NULL
+-- Setting properties_type_id NOT NULL
+ALTER TABLE properties
+ALTER COLUMN type_id
+SET NOT NULL;
+
+/* Also DELETE non existent element with atomic_number 1000
+ * We DELETE from both tables in one transaction to keep data consistent
+ * https://www.postgresql.org/docs/current/tutorial-transactions.html
+ * https://stackoverflow.com/questions/10145221/how-to-delete-data-from-multiple-tables
+ */
+BEGIN;
+
+-- delete item with atomic_number = 1000 in BOTH TABLES
+DELETE FROM properties
+WHERE
+    atomic_number = 1000;
+
+DELETE FROM elements
+WHERE
+    atomic_number = 1000;
+
+COMMIT;
