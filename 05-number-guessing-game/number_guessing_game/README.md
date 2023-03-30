@@ -1,7 +1,6 @@
-
 First create a folder, a script in it and give exec. permissions.
 
-Then, 
+Then,
 
 ```shell
 mkdir number_guessing_game && cd number_guessing_game
@@ -15,5 +14,11 @@ git commit -m "Initial commit"
 Then we create the database
 
 ```shell
-psql -U freecodecamp -d postgres -a -f 00_createdb.sql
+psql -U freecodecamp -d postgres -f 00_createdb.sql
+```
+
+Query example
+
+```shell
+psql -U freecodecamp -d number_guess -t --no-align -c "SELECT user_id FROM Users WHERE username='yourname'"
 ```
