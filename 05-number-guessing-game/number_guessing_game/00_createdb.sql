@@ -18,18 +18,20 @@ CREATE TABLE IF NOT EXISTS
 ALTER TABLE Users
 ADD COLUMN username VARCHAR(22) NOT NULL UNIQUE;
 
-CREATE TABLE IF NOT EXISTS
-    Games ();
-
-ALTER TABLE Games
-ADD COLUMN game_id SERIAL PRIMARY KEY;
+ALTER TABLE Users
+ADD COLUMN games_played INT NOT NULL DEFAULT (0);
 
 /* ALTER TABLE Games
  * ADD COLUMN user_id INT REFERENCES Users (user_id); 
  * Although I used: https://www.cockroachlabs.com/blog/sql-add-constraint/
+ * The difference is that instead of a constraint called "users_fk" there's 
+ * a generic name for that constraint, usually called <table_column_num>
  */
 -- We used ADD COLUMN user_id INT NOT NULL, but any REFERENCE to a FOREIGN KEY that's
 -- also a SERIAL PRIMARY KEY will be NOT NULL by Transitive Property of Equality...
+CREATE TABLE IF NOT EXISTS
+    Games (game_id SERIAL PRIMARY KEY);
+
 ALTER TABLE Games
 ADD COLUMN user_id INT NOT NULL;
 
@@ -47,10 +49,10 @@ ADD COLUMN guesses_num INT NOT NULL DEFAULT (0);
  * PSQL commands: 
  *
  * SELECT * FROM Users;
- *  user_id |      username      
- * ---------+--------------------
- *        1 | user_1680128321083
- *        2 | user_1680128321082
+ *  user_id |      username      |  games_played  |
+ * ---------+--------------------+----------------+
+ *        1 | user_1680128321083 |              3 |
+ *        2 | user_1680128321082 |              4 |
  *
  * SELECT * FROM Games;
  *  game_id | user_id | guesses_num 
