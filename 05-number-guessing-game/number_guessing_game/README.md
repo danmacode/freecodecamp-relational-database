@@ -1,3 +1,15 @@
+Our database should look like this:
+
+```text
+                 List of relations
+ Schema |       Name        |   Type   |    Owner
+--------+-------------------+----------+--------------
+ public | games             | table    | freecodecamp
+ public | games_game_id_seq | sequence | freecodecamp
+ public | users             | table    | freecodecamp
+ public | users_user_id_seq | sequence | freecodecamp
+```
+
 First create a folder, a script in it and give exec. permissions.
 
 Then,
