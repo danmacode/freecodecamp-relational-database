@@ -124,8 +124,58 @@ CREATE TABLE IF NOT EXISTS moon (
     description TEXT
 );
 
+-- insert 0 20
+INSERT INTO
+    moon (name, radius, planet_id, description)
+VALUES
+    ('moon1', 2439.7, 1, 'moon1'),
+    ('moon2', 2439.7, 1, 'moon2'),
+    ('moon3', 2439.7, 1, 'moon3'),
+    ('moon4', 2439.7, 1, 'moon4'),
+    ('moon5', 2439.7, 1, 'moon5'),
+    ('moon6', 2439.7, 1, 'moon6'),
+    ('moon7', 2439.7, 1, 'moon7'),
+    ('moon8', 2439.7, 1, 'moon8'),
+    ('moon9', 2439.7, 1, 'moon9'),
+    ('moon10', 2439.7, 1, 'moon10'),
+    ('moon11', 2439.7, 1, 'moon11'),
+    ('moon12', 2439.7, 1, 'moon12'),
+    ('moon13', 2439.7, 1, 'moon13'),
+    ('moon14', 2439.7, 1, 'moon14'),
+    ('moon15', 2439.7, 1, 'moon15'),
+    ('moon16', 2439.7, 1, 'moon16'),
+    ('moon17', 2439.7, 1, 'moon17'),
+    ('moon18', 2439.7, 1, 'moon18'),
+    ('moon19', 2439.7, 1, 'moon18'),
+    ('moon20', 2439.7, 1, 'moon18');
+
 -- we need 5 tables in total to pass the test
-CREATE TABLE IF NOT EXISTS filler (
+CREATE TABLE IF NOT EXISTS filler_table (
     filler_id SERIAL PRIMARY KEY,
     name VARCHAR(30) NOT NULL UNIQUE,
+    description TEXT
 );
+
+-- INSERT 0 3
+INSERT INTO
+    filler_table (name, description)
+VALUES
+    ('filler1', 'text1'),
+    ('filler2', 'text2'),
+    ('filler3', 'text3');
+
+/* 
+ * I forgot to include 1 column in the galaxy table,
+ * all 4 first tables must have 5 columns
+ */
+ALTER TABLE
+    galaxy
+ADD
+    long_description TEXT;
+
+/* 
+ * Now I have to rename the filler_table pkey to filler_table_id
+ * to make it comply with the pkey naming convention
+ */
+ALTER TABLE
+    filler_table RENAME COLUMN filler_id TO filler_table_id;
