@@ -11,3 +11,9 @@ From [postgresql.org](https://www.postgresql.org/docs/current/datatype-numeric.h
 - REAL or float8 is a 4-byte floating-point number
 
 All numeric types can be found [here](https://www.postgresql.org/docs/current/datatype-numeric.html)
+
+The postgresql dump with `pg_dump -cC --inserts -U freecodecamp universe > universe.sql` always does sequential INSERT instead of inserting all rows at once. Why?
+
+https://stackoverflow.com/questions/44482070/create-postgresql-dump-with-one-insert-statement-instead-of-insert-per-row
+
+> Since PostgreSQL 12 you can use pg_dump with --rows-per-insert=nrows

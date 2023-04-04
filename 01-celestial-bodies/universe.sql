@@ -1,6 +1,6 @@
 -- -*-mode: sql; sql-product: postgres;-*- vim:ft=postgresql
 --
--- PostgreSQL database dump - db dump after galaxy table creation & values inserted
+-- PostgreSQL database dump - db dump after star table creation & values inserted
 
 -- Dumped from database version 12.9 (Ubuntu 12.9-2.pgdg20.04+1)
 -- Dumped by pg_dump version 12.9 (Ubuntu 12.9-2.pgdg20.04+1)
@@ -80,6 +80,43 @@ ALTER SEQUENCE public.galaxy_galaxy_id_seq OWNED BY public.galaxy.galaxy_id;
 
 
 --
+-- Name: star; Type: TABLE; Schema: public; Owner: freecodecamp
+--
+
+CREATE TABLE public.star (
+    star_id integer NOT NULL,
+    name character varying(30) NOT NULL,
+    galaxy_id integer,
+    random_int integer,
+    description text
+);
+
+
+ALTER TABLE public.star OWNER TO freecodecamp;
+
+--
+-- Name: star_star_id_seq; Type: SEQUENCE; Schema: public; Owner: freecodecamp
+--
+
+CREATE SEQUENCE public.star_star_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.star_star_id_seq OWNER TO freecodecamp;
+
+--
+-- Name: star_star_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: freecodecamp
+--
+
+ALTER SEQUENCE public.star_star_id_seq OWNED BY public.star.star_id;
+
+
+--
 -- Name: galaxy galaxy_id; Type: DEFAULT; Schema: public; Owner: freecodecamp
 --
 
@@ -87,21 +124,48 @@ ALTER TABLE ONLY public.galaxy ALTER COLUMN galaxy_id SET DEFAULT nextval('publi
 
 
 --
+-- Name: star star_id; Type: DEFAULT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.star ALTER COLUMN star_id SET DEFAULT nextval('public.star_star_id_seq'::regclass);
+
+
+--
 -- Data for Name: galaxy; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
-INSERT INTO public.galaxy VALUES (1, 'Milky Way', 2.1, 'The galaxy that includes the Solar System');
-INSERT INTO public.galaxy VALUES (2, 'Andromeda', 2.2, 'The nearest large galaxy to the Milky Way');
-INSERT INTO public.galaxy VALUES (3, 'Tadpole', 2.61, 'A disrupted barred spiral galaxy');
-INSERT INTO public.galaxy VALUES (4, 'Comet', 4.5, 'A spiral galaxy of unusual appearance');
-INSERT INTO public.galaxy VALUES (5, 'Sombrero', 1.1, 'A peculiar galaxy of unclear classification');
-INSERT INTO public.galaxy VALUES (6, 'Pinwheel', 0.243, 'A face-on spiral galaxy');
+INSERT INTO public.galaxy VALUES (1, 'Milky Way', 2, 'the galaxy etc');
+INSERT INTO public.galaxy VALUES (2, 'Androm', 3, 'hola');
+INSERT INTO public.galaxy VALUES (3, 'third', 3, 'si hola');
+INSERT INTO public.galaxy VALUES (4, 'fourth', 4, 'qtal');
+INSERT INTO public.galaxy VALUES (5, 'fifth', 5, 'sip');
+INSERT INTO public.galaxy VALUES (6, 'sixth', 6, 'end');
+
+
+--
+-- Data for Name: star; Type: TABLE DATA; Schema: public; Owner: freecodecamp
+--
+
+INSERT INTO public.star VALUES (1, 'Sun', 1, 20, 'Lone star');
+INSERT INTO public.star VALUES (2, 'Star2', 2, 24, 'Second');
+INSERT INTO public.star VALUES (3, 'Star3', 3, 34, 'Third');
+INSERT INTO public.star VALUES (4, 'Star4', 4, 55, 'Fourth');
+INSERT INTO public.star VALUES (5, 'Star5', 5, 71, 'Fifth');
+INSERT INTO public.star VALUES (6, 'Star6', 6, 80, 'Sixth');
+
 
 --
 -- Name: galaxy_galaxy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
 SELECT pg_catalog.setval('public.galaxy_galaxy_id_seq', 6, true);
+
+
+--
+-- Name: star_star_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
+--
+
+SELECT pg_catalog.setval('public.star_star_id_seq', 6, true);
 
 
 --
@@ -121,5 +185,30 @@ ALTER TABLE ONLY public.galaxy
 
 
 --
+-- Name: star star_name_key; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.star
+    ADD CONSTRAINT star_name_key UNIQUE (name);
+
+
+--
+-- Name: star star_pkey; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.star
+    ADD CONSTRAINT star_pkey PRIMARY KEY (star_id);
+
+
+--
+-- Name: star star_galaxy_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.star
+    ADD CONSTRAINT star_galaxy_id_fkey FOREIGN KEY (galaxy_id) REFERENCES public.galaxy(galaxy_id);
+
+
+--
 -- PostgreSQL database dump complete
 --
+

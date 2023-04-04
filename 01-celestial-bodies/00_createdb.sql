@@ -46,13 +46,32 @@ VALUES
     ),
     ('Pinwheel', 0.243, 'A face-on spiral galaxy');
 
---
+-- each "star" has an fkey that references a row in galaxy
 CREATE TABLE IF NOT EXISTS star (
     star_id SERIAL PRIMARY KEY,
     name VARCHAR(30) NOT NULL UNIQUE,
     galaxy_id INT REFERENCES galaxy (galaxy_id),
+    random_int INT,
     description TEXT
 );
+
+-- What if I insert one row separately from the others?
+-- Will this change the insertion order in the DB dump?
+-- INSERT 0 1
+INSERT INTO
+    star (name, galaxy_id, random_int, description)
+VALUES
+    ('Sun', 1, 20, 'Lone star');
+
+-- INSERT 0 5
+INSERT INTO
+    star (name, galaxy_id, random_int, description)
+VALUES
+    ('Star2', 2, 24, 'Second'),
+    ('Star3', 3, 43, 'Third'),
+    ('Star4', 4, 55, 'Fourth'),
+    ('Star5', 5, 71, 'Fifth'),
+    ('Star6', 6, 80, 'Sixth');
 
 CREATE TABLE IF NOT EXISTS planet (
     planet_id SERIAL PRIMARY KEY,
