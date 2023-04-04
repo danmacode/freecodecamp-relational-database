@@ -78,10 +78,40 @@ CREATE TABLE IF NOT EXISTS planet (
     name VARCHAR(30) NOT NULL UNIQUE,
     -- e.g. pluto
     dwarf BOOLEAN NOT NULL DEFAULT FALSE,
+    gaseous BOOLEAN NOT NULL DEFAULT FALSE,
     moons INT NOT NULL DEFAULT (0),
+    -- closest star
+    radius NUMERIC,
     star_id INT REFERENCES star (star_id),
     description TEXT
 );
+
+-- we need 12+ rows
+-- chatGPT found the moons & radii of all planets
+-- INSERT 0 12
+INSERT INTO
+    planet (
+        name,
+        dwarf,
+        gaseous,
+        moons,
+        radius,
+        star_id,
+        description
+    )
+VALUES
+    ('Mercury', FALSE, FALSE, 0, 2439.7, 1, 'planet1'),
+    ('Venus', FALSE, FALSE, 0, 6051.8, 1, 'planet2'),
+    ('Earth', FALSE, FALSE, 1, 6371, 1, 'planet3'),
+    ('Mars', FALSE, FALSE, 2, 3389.5, 1, 'planet4'),
+    ('Jupiter', FALSE, TRUE, 4, 69911, 1, 'planet5'),
+    ('Saturn', FALSE, TRUE, 83, 58232, 1, 'planet6'),
+    ('Uranus', FALSE, TRUE, 27, 25362, 1, 'planet7'),
+    ('Neptune', FALSE, TRUE, 14, 24622, 1, 'planet8'),
+    ('Pluto', TRUE, FALSE, 5, 1187, 1, 'planet9'),
+    ('Pluto2', TRUE, FALSE, 5, 1187, 1, 'planet10'),
+    ('Pluto3', TRUE, FALSE, 5, 1187, 1, 'planet11'),
+    ('Pluto4', TRUE, FALSE, 5, 1187, 1, 'planet12');
 
 -- 🤓 actually, these are satellites, not "moons"
 CREATE TABLE IF NOT EXISTS moon (
