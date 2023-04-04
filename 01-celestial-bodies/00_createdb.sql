@@ -8,6 +8,7 @@ CREATE DATABASE universe;
 -- then create all 4 tables with table_name_id naming convention
 -- all of them with a name column, and 5 columns
 -- each table with 3+ rows
+-- galaxy & star tables should each have 6+ rows
 CREATE TABLE IF NOT EXISTS galaxy (
     galaxy_id SERIAL PRIMARY KEY NOT NULL,
     name VARCHAR(30) NOT NULL UNIQUE,
@@ -15,6 +16,37 @@ CREATE TABLE IF NOT EXISTS galaxy (
     description TEXT
 );
 
+INSERT INTO
+    galaxy (name, speed, description)
+VALUES
+    (
+        'Milky Way',
+        2.1,
+        'the galaxy that includes the Solar System'
+    ),
+    (
+        'Andromeda',
+        2.2,
+        'The nearest large galaxy to the Milky Way'
+    ),
+    (
+        'Tadpole',
+        2.61,
+        'A disrupted barred spiral galaxy'
+    ),
+    (
+        'Comet',
+        3,
+        'A spiral galaxy of unusual appearance'
+    ),
+    (
+        'Sombrero',
+        1.1,
+        'A peculiar galaxy of unclear classification'
+    ),
+    ('Pinwheel', 0.243, 'A face-on spiral galaxy');
+
+--
 CREATE TABLE IF NOT EXISTS star (
     star_id SERIAL PRIMARY KEY,
     name VARCHAR(30) NOT NULL UNIQUE,
